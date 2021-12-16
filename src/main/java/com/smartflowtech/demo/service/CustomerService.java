@@ -56,7 +56,7 @@ public class CustomerService implements CustomerDao {
     @Override
     public Response order(Request request) {
         Optional<Customer> customer = customerRepo.findByUsername(request.getUsername());
-        if(customer.isEmpty())
+        if(!customer.isPresent())
             return new Response("User not found", getAllCustomers(), null);
 
         double remainder = customer.get().getBalance() - request.getMoney();
@@ -101,7 +101,7 @@ public class CustomerService implements CustomerDao {
     public Response setLimit(Request request) {
         Optional<Customer> customer = customerRepo.findByUsername(request.getUsername());
         Response response = new Response();
-        if(customer.isEmpty()) {
+        if(!customer.isPresent()) {
             response.setStatus("User not found");
         }
         else {
@@ -115,9 +115,13 @@ public class CustomerService implements CustomerDao {
     @Override
     public Response reset(Request request) {
         LocalDate date = LocalDate.parse(request.getDate());
-        if(List.of(29, 30, 31).contains(date.getDayOfMonth())){
+        List<Integer> list = new ArrayList<>();
+        list.add(29);
+        list.add(30);
+        list.add(31);
+        if(list.contains(date.getDayOfMonth())){
             Optional<Customer> customer = customerRepo.findByUsername(request.getUsername());
-            if(customer.isEmpty())
+            if(customer.isPresent())
                 return new Response("Cannot find customer", getAllCustomers(), null);
 
             customer.get().setCredit(0);

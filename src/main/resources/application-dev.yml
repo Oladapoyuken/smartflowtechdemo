@@ -1,11 +1,5 @@
 spring:
 
-#  datasource:
-#    url: jdbc:mariadb://localhost:3306/smartflowtechdemo_db
-#    username: root
-#    password:
-#    pool-size: 30
-
   datasource:
     url: jdbc:postgres://nrspjldvvtpmwg:5bf28960227b6dee647e6da9ec7bfc66895c754908a310611039f5972304abb5@ec2-44-199-158-170.compute-1.amazonaws.com:5432/deva5hi3gmahml
     username: nrspjldvvtpmwg
